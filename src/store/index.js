@@ -9,7 +9,7 @@ export default new Vuex.Store({
     loggedIn: false,
     products: [],
     banners: [],
-    product: {}
+    editProductValue: {}
   },
   mutations: {
     isLogin (state, payload) {
@@ -24,8 +24,8 @@ export default new Vuex.Store({
     insertBanners (state, payloads) {
       state.banners = payloads
     },
-    setDetail (state, payload) {
-      state.product = payload
+    insertEditProductValue (state, payloads) {
+      state.editProductValue = payloads
     }
   },
   actions: {
@@ -80,7 +80,7 @@ export default new Vuex.Store({
         })
     },
     addCategory (context, payload) {
-      axios({
+      return axios({
         method: 'POST',
         url: '/categories',
         headers: { token: localStorage.getItem('token') },
@@ -88,28 +88,21 @@ export default new Vuex.Store({
           name: payload.name
         }
       })
-        .then(() => {
-          context.dispatch('getCategories')
-        })
-        .catch(err => {
-          console.log(err)
-        })
     },
-    getProductById (context, id) {
-      console.log(id, 'testing')
-      axios({
-        url: '/products/' + id,
-        method: 'PUT',
-        headers: { token: localStorage.getItem('token') }
+    addProduct (context, payload) {
+      return axios({
+        method: 'POST',
+        url: '/products',
+        headers: { token: localStorage.getItem('token') },
+        data: {
+          image_url: payload.image_url,
+          name: payload.name,
+          price: payload.price,
+          stock: payload.stock,
+          CategoryId: payload.CategoryId
+        }
       })
-        .then(({ data }) => {
-          context.commit('setDetail', data)
-        })
-        .catch(err => {
-          console.log(err)
-        })
     },
-
     addBanner (context, payload) {
       axios({
         method: 'POST',
@@ -120,8 +113,7 @@ export default new Vuex.Store({
           image_url: payload.image_url
         }
       })
-        .then((res) => {
-          console.log(res, 'sampe kok')
+        .then(() => {
           context.dispatch('getBanners')
         })
         .catch(err => {
@@ -129,22 +121,16 @@ export default new Vuex.Store({
         })
     },
     deleteCategory (context, payload) {
-      axios({
+      return axios({
         method: 'DELETE',
         url: '/categories/' + payload,
         headers: { token: localStorage.getItem('token') }
       })
-        .then(() => {
-          context.dispatch('getCategories')
-        })
-        .catch(err => {
-          console.log(err)
-        })
     },
-    deleteBanner (context, payload) {
+    deleteBanner (context, id) {
       axios({
         method: 'DELETE',
-        url: '/banners/' + payload,
+        url: '/banners/' + id,
         headers: { token: localStorage.getItem('token') }
       })
         .then(() => {
@@ -153,6 +139,55 @@ export default new Vuex.Store({
         .catch(err => {
           console.log(err)
         })
+    },
+    changeBannerStatus (context, payload) {
+      axios({
+        method: 'PATCH',
+        url: '/banners/' + payload.id,
+        headers: { token: localStorage.getItem('token') },
+        data: {
+          status: payload.status
+        }
+      })
+        .then(() => {
+          context.dispatch('getBanners')
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    deleteProduct (context, id) {
+      return axios({
+        method: 'DELETE',
+        url: '/products/' + id,
+        headers: { token: localStorage.getItem('token') }
+      })
+    },
+    editProduct (context, payload) {
+      return axios({
+        method: 'PUT',
+        url: '/products/' + payload.id,
+        headers: { token: localStorage.getItem('token') },
+        data: {
+          image_url: payload.image_url,
+          name: payload.name,
+          price: payload.price,
+          stock: payload.stock,
+          CategoryId: payload.CategoryId
+        }
+      })
+    },
+    editBanner (context, payload) {
+      return axios({
+        method: 'PUT',
+        url: '/banners/' + payload.id,
+        headers: { token: localStorage.getItem('token') },
+        data: {
+          image_url: payload.image_url,
+          title: payload.title,
+          status: payload.status
+        }
+      })
     }
   },
   modules: {

@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Login from '../views/Login.vue'
 import Main from '../views/Main.vue'
-import Detail from '../views/Detail.vue'
+import EditProductForm from '../components/EditProductForm.vue'
 
 Vue.use(VueRouter)
 
@@ -18,9 +18,9 @@ const routes = [
     component: Main
   },
   {
-    path: '/detail/:id',
-    name: 'Detail',
-    component: Detail
+    path: '/:id',
+    name: 'EditProductForm',
+    component: EditProductForm
   }
 ]
 
