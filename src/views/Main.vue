@@ -4,42 +4,107 @@
       <div v-if="navOpen" class="main-nav col-1.5">
         <h3><a href="#" @click.prevent="resetCategory">Home</a></h3>
         <div class="space categories-space">
-          <h3><b>Categories</b></h3>
+          <h3><b>Categories : </b></h3>
           <ul class="overflow-auto">
             <Category
               v-for="category in categories"
               :key="category.id"
               :category="category"
+              @showProducts="showProducts"
               @chose="choseCategory"
             />
           </ul>
         </div>
+        <h3><b>Menu : </b></h3>
         <div class="action-product">
           <div class="add-product">
             <button class="btn btn-action" @click="addProduct">
-                  Add Product
-                </button>
-              </div>
-              <div class="add-category">
-                <button class="btn btn-action" @click="addCategory">
-                  Add Category
-                </button>
-              </div><br>
-              <div class="delete-category">
-                <button class="btn btn-action" @click="deleteCategory">
-                  Delete Category
-                </button>
-              </div>
-            </div>
+              <svg
+                width="1.5em"
+                height="1.5em"
+                viewBox="0 0 16 16"
+                class="bi bi-file-earmark-plus-fill"
+                fill="currentColor"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M2 2a2 2 0 0 1 2-2h5.293A1 1 0 0 1 10 .293L13.707 4a1 1 0 0 1 .293.707V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2zm7.5 1.5v-2l3 3h-2a1 1 0 0 1-1-1zM8.5 7a.5.5 0 0 0-1 0v1.5H6a.5.5 0 0 0 0 1h1.5V11a.5.5 0 0 0 1 0V9.5H10a.5.5 0 0 0 0-1H8.5V7z"
+                />
+              </svg>
+              <small> Add Product</small>
+            </button>
+          </div>
+          <div class="add-category">
+            <button class="btn btn-action" @click="addCategory">
+              <svg
+                width="1.5em"
+                height="1.5em"
+                viewBox="0 0 16 16"
+                class="bi bi-file-earmark-plus-fill"
+                fill="currentColor"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M2 2a2 2 0 0 1 2-2h5.293A1 1 0 0 1 10 .293L13.707 4a1 1 0 0 1 .293.707V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2zm7.5 1.5v-2l3 3h-2a1 1 0 0 1-1-1zM8.5 7a.5.5 0 0 0-1 0v1.5H6a.5.5 0 0 0 0 1h1.5V11a.5.5 0 0 0 1 0V9.5H10a.5.5 0 0 0 0-1H8.5V7z"
+                />
+              </svg>
+              <small> Add Category</small>
+            </button>
+          </div>
+          <div class="delete-category">
+            <button class="btn btn-action" @click="deleteCategory">
+              <svg
+                width="1.5em"
+                height="1.5em"
+                viewBox="0 0 16 16"
+                class="bi bi-file-earmark-x-fill"
+                fill="currentColor"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M2 2a2 2 0 0 1 2-2h5.293A1 1 0 0 1 10 .293L13.707 4a1 1 0 0 1 .293.707V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2zm7.5 1.5v-2l3 3h-2a1 1 0 0 1-1-1zM6.854 7.146a.5.5 0 1 0-.708.708L7.293 9l-1.147 1.146a.5.5 0 0 0 .708.708L8 9.707l1.146 1.147a.5.5 0 0 0 .708-.708L8.707 9l1.147-1.146a.5.5 0 0 0-.708-.708L8 8.293 6.854 7.146z"
+                />
+              </svg>
+              <small> Delete Category</small>
+            </button>
+          </div>
+        </div><br>
         <div class="space banners-space">
-          <h3><a href="#"><b>Banners</b></a></h3>
+          <h4>
+        <b>Banners :</b>
+          </h4>
           <div class="action-banner">
-              <div class="add-banner">
-                <button class="btn btn-action" @click="addBanner">
-                  Add Banner
-                </button>
-              </div>
+            <div class="view-banner">
+              <button class="btn btn-action" @click.prevent="showBanners">
+                  <path
+                    fill-rule="evenodd"
+                    d="M2 2a2 2 0 0 1 2-2h5.293A1 1 0 0 1 10 .293L13.707 4a1 1 0 0 1 .293.707V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2zm7.5 1.5v-2l3 3h-2a1 1 0 0 1-1-1zM8.5 7a.5.5 0 0 0-1 0v1.5H6a.5.5 0 0 0 0 1h1.5V11a.5.5 0 0 0 1 0V9.5H10a.5.5 0 0 0 0-1H8.5V7z"
+                  />
+                <small>show Banner</small>
+              </button>
             </div>
+            <div class="add-banner">
+              <button class="btn btn-action" @click="addBanner">
+                <svg
+                  width="1.5em"
+                  height="1.5em"
+                  viewBox="0 0 16 16"
+                  class="bi bi-file-earmark-plus-fill"
+                  fill="currentColor"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M2 2a2 2 0 0 1 2-2h5.293A1 1 0 0 1 10 .293L13.707 4a1 1 0 0 1 .293.707V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2zm7.5 1.5v-2l3 3h-2a1 1 0 0 1-1-1zM8.5 7a.5.5 0 0 0-1 0v1.5H6a.5.5 0 0 0 0 1h1.5V11a.5.5 0 0 0 1 0V9.5H10a.5.5 0 0 0 0-1H8.5V7z"
+                  />
+                </svg>
+                <small> Add Banner</small>
+              </button>
+            </div>
+          </div>
         </div>
       </div>
       <div class="main-content col-14">
@@ -51,14 +116,15 @@
               viewBox="0 0 16 16"
               class="bi bi-three-dots"
               fill="currentColor"
-              title="p"
+              xmlns="http://www.w3.org/2000/svg"
             >
               <path
                 fill-rule="evenodd"
                 d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"
               />
-            </svg></button>
-          <div class="user-email" style="color:'white'">Products</div>
+            </svg>
+          </button>
+          <div class="user-email">{{ userEmail }}</div>
           <div class="content-category">{{ chosenCategory.name }}</div>
         </div>
         <div class="content">
@@ -276,7 +342,8 @@ export default {
             if (result.isConfirmed) {
               return this.$store.dispatch('deleteCategory', result.value)
             }
-          }).then(() => {
+          })
+          .then(() => {
             this.$store.dispatch('getCategories')
           })
           .catch(err => {
@@ -355,6 +422,8 @@ export default {
       }
     },
     categories () {
+      this.$store.dispatch('getCategories')
+      console.log(this.$store.state.categories)
       return this.$store.state.categories
     },
     banners () {
@@ -368,10 +437,15 @@ export default {
       }
     }
   },
-  created () {
-    this.$store.dispatch('getProducts')
+  mounted () {
     this.$store.dispatch('getCategories')
+    this.$store.dispatch('getProducts')
     this.$store.dispatch('getBanners')
+    if (localStorage.getItem('token')) {
+      this.$store.commit('isLogin', true)
+    } else {
+      this.$router.push('/login')
+    }
   }
 }
 </script>
@@ -449,7 +523,7 @@ export default {
   flex-direction: column;
   padding: 10px;
   margin-right: 12px;
-  height: 80%;
+  height: 90%;
 }
 
 .main-nav a {

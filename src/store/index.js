@@ -9,7 +9,8 @@ export default new Vuex.Store({
     loggedIn: false,
     products: [],
     banners: [],
-    editProductValue: {}
+    editProductValue: {},
+    categories: ''
   },
   mutations: {
     isLogin (state, payload) {

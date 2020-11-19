@@ -13,8 +13,9 @@
       </div>
       <div class="col-3">
         <div class="banner-property banner-name">{{ banner.title }}</div>
+      </div>
       <div class="col-1">
-          <div class="banner-property banner-status" id="banner-status">
+        <div class="banner-property banner-status" id="banner-status">
           <a
             href="#"
             v-if="banner.status === 'Active'"
@@ -64,7 +65,7 @@
       </div>
       <div class="col-1" @click="editBanner">
         <button class="btn">
-            <svg
+          <svg
             width="2em"
             height="2em"
             viewBox="0 0 16 16"
@@ -80,7 +81,7 @@
         </button>
       </div>
       <div class="col-1">
-          <button class="btn" @click="deleteBanner">
+        <button class="btn" @click="deleteBanner">
           <svg
             width="2em"
             height="2em"
@@ -98,7 +99,6 @@
       </div>
     </div>
   </div>
-  </div>
 </template>
 
 <script>
@@ -114,16 +114,24 @@ export default {
   },
   methods: {
     statusActive () {
-      this.$store.dispatch('changeBannerStatus', {
-        id: this.banner.id,
-        status: 'Active'
-      })
+      if (this.$store.state.loggedIn) {
+        this.$store.dispatch('changeBannerStatus', {
+          id: this.banner.id,
+          status: 'Active'
+        })
+      } else {
+        Swal.fire('Please login first')
+      }
     },
     statusInactive () {
-      this.$store.dispatch('changeBannerStatus', {
-        id: this.banner.id,
-        status: 'Inactive'
-      })
+      if (this.$store.state.loggedIn) {
+        this.$store.dispatch('changeBannerStatus', {
+          id: this.banner.id,
+          status: 'Inactive'
+        })
+      } else {
+        Swal.fire('Please login first')
+      }
     },
     deleteBanner () {
       if (this.$store.state.loggedIn) {
@@ -226,22 +234,22 @@ export default {
   height: auto;
 }
 .icon:hover {
-  color: #42b983;
+  color: black;
   transition: 300ms;
 }
 
 a {
-  color: #42b983;
+  color: black;
   text-decoration: none;
 }
 a:hover {
-  color: #36966b;
+  color: black;
   transition: 300ms;
 }
 
 .banner {
   align-items: center;
-  background-color: #006666;
+  background-color: grey;
   display: flex;
   font-size: 2em;
   justify-content: space-around;
@@ -251,6 +259,6 @@ a:hover {
 }
 .banner-property {
   font-size: 2rem !important;
-  color: #42b983;
+  color: black;
 }
 </style>

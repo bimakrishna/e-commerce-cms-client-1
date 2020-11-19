@@ -1,5 +1,5 @@
 <template>
-  <li><a id="category" href="#" @click.prevent="chose">{{category.name}}</a></li>
+  <li>- <a id="category" href="#" @click.prevent="chose">{{category.name}}</a></li>
 </template>
 
 <script>
@@ -22,6 +22,7 @@ a {
   color: #2c3e50;
   text-decoration: none;
 }
+
 a:hover {
   color: #006666;
   transition: 300ms;

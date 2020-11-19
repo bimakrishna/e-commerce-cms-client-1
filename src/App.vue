@@ -29,6 +29,7 @@ export default {
         if (result.isConfirmed) {
           Swal.fire('Logged Out!', 'Your have been logged out!.', 'success')
           this.$store.dispatch('logout')
+          this.$router.push('/login')
           const Toast = Swal.mixin({
             toast: true,
             position: 'top-end',
@@ -56,6 +57,9 @@ export default {
     }
   },
   created () {
+    this.$store.dispatch('getProducts')
+    this.$store.dispatch('getCategories')
+    this.$store.dispatch('getBanners')
     if (localStorage.getItem('token')) {
       this.$store.commit('isLogin', true)
     } else {
